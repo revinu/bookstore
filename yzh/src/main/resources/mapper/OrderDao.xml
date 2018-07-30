@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.module.order.OrderDao">
+
+    <sql id="columns">
+        a.id AS "id",
+        a.user_id AS "userId",
+        a.total_price AS "totalPrice",
+        a.create_time AS "createTime",
+        a.linkinfo_id AS "linkInfo.id"
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO
+        t_order(
+        id
+        ,user_id
+        ,total_price
+        ,create_time
+        ,linkinfo_id
+        ) VALUES (
+        <choose>
+            <when test="id != null and id != ''">
+                #{id}
+            </when>
+            <otherwise>
+                UUID()
+            </otherwise>
+        </choose>
+        ,#{userId}
+        ,#{totalPrice}
+        ,NOW()
+        ,#{linkInfo.id}
+        )
+    </insert>
+
+    <select id="get" resultType="Order">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_order a
+        WHERE
+        a.id = #{id}
+    </select>
+
+    <select id="getByEntity" resultType="Order">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_order a
+        <where>
+            <if test="id != null and id != ''">
+                AND a.id = #{id}
+            </if>
+            <if test="userId != userId">
+                AND a.user_id = #{userId}
+            </if>
+        </where>
+        LIMIT 1
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM
+        t_order
+        WHERE
+       id = #{id}
+    </delete>
+
+    <select id="list" resultType="Order">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_order a
+        ORDER BY a.create_time DESC
+    </select>
+
+    <select id="listByEntity" resultType="Order">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_order a
+        <where>
+            <if test="id != null and id != ''">
+                AND a.id = #{id}
+            </if>
+            <if test="userId != userId">
+                AND a.user_id = #{userId}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <update id="update">
+        UPDATE
+        t_order
+        SET
+        user_id = #{userId}
+        ,total_price = #{totalPrice}
+        ,linkinfo_id = #{linkInfo.id}
+        WHERE
+        id = #{id}
+    </update>
+
+    <insert id="addCoon">
+        INSERT INTO
+            t_order_item(
+            order_id
+            ,item_id
+            ,create_time
+        )
+        VALUES (
+            #{orderId}
+            ,#{itemId}
+            ,NOW()
+        )
+    </insert>
+
+</mapper>

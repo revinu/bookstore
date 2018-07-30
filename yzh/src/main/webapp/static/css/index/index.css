@@ -1,0 +1,48 @@
+.carousel {
+    height: 300px;
+    padding: 0px !important;
+}
+
+.crousel-img {
+    height: 300px !important;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.user-center {
+    height: 300px;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    padding-left: 40px !important;
+}
+
+.form-horizontal {
+    margin-top: 15px;
+}
+
+.book-advert {
+    height: 600px;
+}
+
+.advert-img {
+    height: 100%;
+    width: 100%;
+}
+
+.thumbnail {
+    height: 290px;
+}
+
+.item-img {
+    height: 85% !important;
+    width: 100% !important;
+}
+
+.item-name {
+    overflow: hidden;
+    line-height: 30px !important;
+}
+
+.item-price {
+    overflow: hidden;
+}

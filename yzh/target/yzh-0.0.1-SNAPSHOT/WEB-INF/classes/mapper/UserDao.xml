@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.common.sys.user.UserDao">
+
+    <sql id="columns">
+        a.id AS "id",
+        a.username AS "username",
+        a.password AS "password",
+        a.head_image AS "headImage",
+        a.name AS "name",
+        a.sex AS "sex",
+        a.mobile AS "mobile",
+        a.type AS "type"
+    </sql>
+
+    <sql id="insertSql">
+        INSERT INTO
+        sys_user(
+        username
+        ,password
+        ,head_image
+        ,name
+        ,sex
+        ,mobile
+        ,type
+        ) VALUES (
+        #{username}
+        ,#{password}
+        ,#{headImage}
+        ,#{name}
+        ,#{sex}
+        ,#{mobile}
+        ,#{type}
+        )
+    </sql>
+
+    <insert id="insert">
+        <include refid="insertSql"/>
+    </insert>
+
+    <insert id="insertEntity" useGeneratedKeys="true" keyProperty="id" parameterType="User">
+        <include refid="insertSql"/>
+    </insert>
+
+    <select id="get" resultType="User">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        sys_user a
+        WHERE
+        a.id = #{id}
+    </select>
+
+    <select id="getByEntity" resultType="User">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        sys_user a
+        <where>
+            <if test="username != null and username != ''">
+                AND a.username = #{username}
+            </if>
+            <if test="password != null and password != ''">
+                AND a.password = #{password}
+            </if>
+        </where>
+    </select>
+
+    <select id="getByUsername" resultType="User">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        sys_user a
+        WHERE
+        a.username = #{username}
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM
+        sys_user
+        WHERE
+        id = #{id}
+    </delete>
+
+    <select id="list" resultType="User">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        sys_user a
+    </select>
+
+    <select id="listByEntity" resultType="User">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        sys_user a
+        <where>
+            <if test="id != null and id != ''">
+                AND a.id = #{id}
+            </if>
+            <if test="username != null and username != ''">
+                AND a.username = #{username}
+            </if>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+            <if test="mobile != null and mobile != ''">
+                AND a.mobile = #{mobile}
+            </if>
+        </where>
+    </select>
+
+    <update id="update">
+        UPDATE
+        sys_user
+        SET
+        username = #{username}
+        ,head_image = #{headImage}
+        ,name = #{name}
+        ,sex = #{sex}
+        ,mobile = #{mobile}
+        ,type = #{type}
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="resetPassword">
+        UPDATE
+        sys_user
+        SET
+        password = #{password}
+        WHERE
+        id = #{id}
+    </update>
+
+</mapper>

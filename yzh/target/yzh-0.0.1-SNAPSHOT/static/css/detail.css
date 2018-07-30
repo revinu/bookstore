@@ -1,0 +1,35 @@
+.detail-img {
+    border: 1px solid #666666;
+    width: 100%;
+    height: 360px;
+}
+
+.detail-hot {
+    color: red;
+}
+
+.detail-name {
+    font-style: italic;
+}
+
+.detail-text {
+    font-size: 18px;
+    line-height: 30px;
+}
+
+.detail-price {
+    color: red;
+}
+
+.detail-footer {
+    position: absolute;
+    bottom: 10px;
+}
+
+.input-group-addon {
+    cursor: pointer;
+}
+
+.addIntoCart {
+    margin-top: 15px;
+}

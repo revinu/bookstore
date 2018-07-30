@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: yzh
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: Administrator
+Implementation-Vendor-Id: com.yzh
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.7.0_72
+Main-Class: ${start-class}
+

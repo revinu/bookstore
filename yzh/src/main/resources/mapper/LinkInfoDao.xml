@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yzh.module.order.linkinfo.LinkInfoDao">
+
+    <sql id="columns">
+        a.id AS "id",
+        a.user_id AS "userId",
+        a.name AS "name",
+        a.address AS "address",
+        a.zip_code AS "zipCode",
+        a.mobile AS "mobile",
+        a.create_time AS "createTime"
+    </sql>
+
+    <insert id="insert">
+        INSERT INTO
+        t_linkinfo(
+        id
+        ,user_id
+        ,name
+        ,address
+        ,zip_code
+        ,mobile
+        ,create_time
+        ) VALUES (
+        <choose>
+            <when test="id != null and id != ''">
+                #{id}
+            </when>
+            <otherwise>
+                UUID()
+            </otherwise>
+        </choose>
+        ,#{userId}
+        ,#{name}
+        ,#{address}
+        ,#{zipCode}
+        ,#{mobile}
+        ,#{createTime}
+        )
+    </insert>
+
+    <select id="get" resultType="LinkInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_linkinfo a
+        WHERE
+        a.id = #{id}
+    </select>
+
+    <select id="getByEntity" resultType="LinkInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_linkinfo a
+        <where>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+        </where>
+        LIMIT 1
+    </select>
+
+    <delete id="delete">
+        DELETE
+        FROM
+        t_linkinfo
+        WHERE
+       id = #{id}
+    </delete>
+
+    <select id="list" resultType="LinkInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_linkinfo a
+        ORDER BY a.create_Time DESC
+    </select>
+
+    <select id="listByEntity" resultType="LinkInfo">
+        SELECT
+        <include refid="columns"/>
+        FROM
+        t_linkinfo a
+        <where>
+            <if test="name != null and name != ''">
+                AND a.name = #{name}
+            </if>
+        </where>
+        ORDER BY a.create_time DESC
+    </select>
+
+    <update id="update">
+        UPDATE
+        t_linkinfo
+        SET
+        user_id = #{userId}
+        ,address = #{address}
+        ,zip_code = #{zipCode}
+        ,mobile = #{mobile}
+        ,name = #{name}
+        ,create_time = #{createTime}
+        WHERE
+        id = #{id}
+    </update>
+
+    <select id="getCount" resultType="int">
+        SELECT
+        count(1)
+        FROM
+        t_linkinfo
+        WHERE
+        user_id = #{userId}
+    </select>
+
+</mapper>
